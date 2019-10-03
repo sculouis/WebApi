@@ -40,7 +40,7 @@ router.delete('/delete',(req,res) => {
     console.log(`刪除筆數:${result}`)
     return res.json(result)
   })
-.catch((err) => console.log(err))
+.catch((err) => err)
 })
 
 app.use(bodyParser.json());
