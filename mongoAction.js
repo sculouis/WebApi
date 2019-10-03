@@ -23,7 +23,7 @@ function Insert(objs) {
 })
 }
 
-function Delete() {
+function Delete(queryObj) {
     return new Promise((resolve,reject) => {
     MongoClient.connect(url, function (err, db) {
         if (err) {
@@ -33,8 +33,7 @@ function Delete() {
         console.log('mongodb is running!');
         let dbo = db.db(dbName)
         let cName = "purchaseorder"
-        let obj = {}
-        dbo.collection(cName).deleteMany(obj, function (err, result) {
+        dbo.collection(cName).deleteMany(queryObj, function (err, result) {
             if (err) {
                 reject(err)
             };
