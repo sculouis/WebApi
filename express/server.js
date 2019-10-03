@@ -5,6 +5,7 @@ const serverless = require('serverless-http');
 const app = express();
 const bodyParser = require('body-parser');
 const router = express.Router();
+var action = require("../mongoAction")
 
 router.get('/', (req, res) => {
   res.writeHead(200, {
@@ -14,7 +15,13 @@ router.get('/', (req, res) => {
   res.end();
 });
 router.get('/datas', (req, res) => {
-    res.json({test:"測試"})
+  action.Query()
+  .then((result) => {
+      console.log(`總筆數:${result.length}`)
+      result.forEach(x =>  console.log(x.Description))
+      return res.json(result)
+    })
+  .catch((err) => console.log(err))
 });
 
 router.post('/', (req, res) => res.json({
