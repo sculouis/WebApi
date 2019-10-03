@@ -44,6 +44,28 @@ function Delete(queryObj) {
 })
 }
 
+function Update(queryObj,updObj) {
+    return new Promise((resolve,reject) => {
+    MongoClient.connect(url, function (err, db) {
+        if (err) {
+            reject(err)
+        }
+        //Write databse Insert/Update/Query code here..
+        console.log('mongodb is running!');
+        let dbo = db.db(dbName)
+        let cName = "purchaseorder"
+        dbo.collection(cName).update(queryObj,updObj, function (err, result) {
+            if (err) {
+                reject(err)
+            };
+            db.close(); //關閉連線
+            resolve(result)
+        })
+    })
+})
+}
+
+
 function CreateDatabase(){
     MongoClient.connect(url, function (err, db) {
         if (err) {
@@ -123,4 +145,4 @@ function Query() {
     })
 })
 }
-module.exports = {Query,CreateCollect,CreateDatabase,Insert,Delete}
+module.exports = {Query,CreateCollect,CreateDatabase,Insert,Delete,Update}

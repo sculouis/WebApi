@@ -43,6 +43,15 @@ router.delete('/delete',(req,res) => {
 .catch((err) => err)
 })
 
+router.put('/update',(req,res) => {
+  action.Update(req.body.queryObj,req.body.updateObj)
+  .then((result) => {
+    console.log(`更新結果:${result}`)
+    return res.json(result)
+  })
+.catch((err) => err)
+})
+
 app.use(bodyParser.json());
 app.use('/.netlify/functions/server', router); // path must route to lambda
 app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
