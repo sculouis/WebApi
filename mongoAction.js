@@ -1,7 +1,8 @@
 let MongoClient = require('mongodb').MongoClient;
 let dbName = "erpdb"
-let url = `mongodb+srv://testUser:Louis058414@cluster0-hxv3f.mongodb.net?retryWrites=true&w=majority`
+let url =  "mongodb+srv://testUser:Louis058414@cluster0-hxv3f.mongodb.net?retryWrites=true&w=majority"
 
+//新增多筆
 function Insert(objs) {
     return new Promise((resolve,reject) => {
     MongoClient.connect(url, function (err, db) {
@@ -23,6 +24,7 @@ function Insert(objs) {
 })
 }
 
+//刪除多筆
 function Delete(queryObj) {
     return new Promise((resolve,reject) => {
     MongoClient.connect(url, function (err, db) {
@@ -44,6 +46,7 @@ function Delete(queryObj) {
 })
 }
 
+//更新
 function Update(queryObj,updObj) {
     return new Promise((resolve,reject) => {
     MongoClient.connect(url, function (err, db) {
@@ -65,7 +68,7 @@ function Update(queryObj,updObj) {
 })
 }
 
-
+//建立資料庫
 function CreateDatabase(){
     MongoClient.connect(url, function (err, db) {
         if (err) {
@@ -78,7 +81,8 @@ function CreateDatabase(){
     })
 }
 
-function CreateCollect() {
+//建立資料集合
+function CreateCollect(cName) {
     MongoClient.connect(url, function (err, db) {
         if (err) {
             throw err
@@ -86,7 +90,6 @@ function CreateCollect() {
         //Write databse Insert/Update/Query code here..
         console.log('mongodb is running!');
         let dbo = db.db(dbName)
-        let cName = "purchaseorder"
         dbo.createCollection(cName, function (err, result) {
             if (err) {
                 throw err
@@ -97,7 +100,8 @@ function CreateCollect() {
     })
 }
 
-function DropCollect(){
+// 刪除資料集合
+function DropCollect(cName){
     MongoClient.connect(url, function (err, db) {
         if (err) {
             throw err
@@ -105,7 +109,6 @@ function DropCollect(){
         //Write databse Insert/Update/Query code here..
         console.log('mongodb is running!');
         let dbo = db.db(dbName)
-        let cName = "a"
         try {
             dbo.dropCollection(cName,function (err, result) {
                 if (err) {
@@ -120,6 +123,7 @@ function DropCollect(){
     })
 }
 
+//取得所有資料集合
 function Query() {
     return new Promise((resolve,reject) => {
     // Connect to the db
