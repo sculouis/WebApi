@@ -24,7 +24,9 @@ router.get('/datas', (req, res) => {
   .catch((err) => console.log(err))
 });
 router.post('/', (req, res) => {
-  action.Insert([...req.body])
+  let objs = []
+  objs.push(req.body)
+  action.Insert(objs)
   .then((result) => {
     console.log(`新增筆數:${result}`)
     return res.json(result)
