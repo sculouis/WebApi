@@ -23,10 +23,14 @@ router.get('/datas', (req, res) => {
     })
   .catch((err) => console.log(err))
 });
-
-router.post('/', (req, res) => res.json({
-  postBody: req.body
-}));
+router.post('/', (req, res) => {
+  action.Insert([...req.body])
+  .then((result) => {
+    console.log(`新增筆數:${result}`)
+    return res.json(result)
+  })
+.catch((err) => console.log(err))
+});
 
 app.use(bodyParser.json());
 app.use('/.netlify/functions/server', router); // path must route to lambda
