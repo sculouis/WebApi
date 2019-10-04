@@ -1,8 +1,9 @@
 'use strict';
 const express = require('express');
+let cors = require('cors');
 const path = require('path');
 const serverless = require('serverless-http');
-const app = express();
+let app = express().use(cors());
 const bodyParser = require('body-parser');
 const router = express.Router();
 var action = require("../mongoAction")
