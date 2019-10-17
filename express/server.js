@@ -1,6 +1,6 @@
 'use strict';
 const express = require('express');
-let cors = require('cors');
+const cors = require('cors');
 const path = require('path');
 const serverless = require('serverless-http');
 let app = express().use(cors());
@@ -53,6 +53,7 @@ router.put('/update',(req,res) => {
 .catch((err) => err)
 })
 
+app.use(cors())
 app.use(bodyParser.json());
 app.use('/.netlify/functions/server', router); // path must route to lambda
 app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
