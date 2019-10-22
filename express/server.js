@@ -97,7 +97,7 @@ router.get('/codeitem', (req, res) => {
 
 app.use(cors())  //解決頁面和Web Api不同Site的問題
 app.use(bodyParser.json());
-app.use('/api', router); // path must route to lambda
+app.use('/.netlify/functions/server', router); // path must route to lambda
 app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
 
 module.exports = app;
