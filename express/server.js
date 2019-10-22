@@ -67,7 +67,7 @@ router.get('/pr/datas', (req, res) => {
 //新增請購明細
 router.post('/pr/add', (req, res) => {
   let obj = req.body
-  action.Insert(obj)
+  action.InsertPr(obj)
   .then((result) => {
     console.log(`新增筆數:${result}`)
     return res.json(result)
