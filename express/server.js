@@ -55,7 +55,7 @@ router.put('/update',(req,res) => {
 
 //取得請購明細資料
 router.get('/pr/datas', (req, res) => {
-  action.QueryPr
+  action.QueryPr()
   .then((result) => {
       console.log(`總筆數:${result.length}`)
       result.forEach(x =>  console.log(x.Description))
