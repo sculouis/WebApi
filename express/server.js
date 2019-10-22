@@ -53,7 +53,41 @@ router.put('/update',(req,res) => {
 .catch((err) => err)
 })
 
-app.use(cors())
+//取得請購明細資料
+router.get('/pr/datas', (req, res) => {
+  action.QueryPr
+  .then((result) => {
+      console.log(`總筆數:${result.length}`)
+      result.forEach(x =>  console.log(x.Description))
+      return res.json(result)
+    })
+  .catch((err) => console.log(err))
+});
+
+//新增請購明細
+router.post('/pr/add', (req, res) => {
+  let obj = req.body
+  action.Insert(obj)
+  .then((result) => {
+    console.log(`新增筆數:${result}`)
+    return res.json(result)
+  })
+.catch((err) => console.log(err))
+});
+
+//新增資料集合
+router.post('/collection/add', (req, res) => {
+  action.CreateCollect(req.body)
+  .then((result) => {
+    console.log(`新增結果:${result}`)
+    return res.json(result)
+  })
+.catch((err) => console.log(err))
+});
+
+
+
+app.use(cors())  //解決頁面和Web Api不同Site的問題
 app.use(bodyParser.json());
 app.use('/.netlify/functions/server', router); // path must route to lambda
 app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));

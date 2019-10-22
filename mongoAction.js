@@ -2,6 +2,28 @@ let MongoClient = require('mongodb').MongoClient;
 let dbName = "erpdb"
 let url =  "mongodb+srv://testUser:Louis058414@cluster0-hxv3f.mongodb.net?retryWrites=true&w=majority"
 
+//新增單筆請購明細
+function InsertPr(obj) {
+    return new Promise((resolve,reject) => {
+    MongoClient.connect(url, function (err, db) {
+        if (err) {
+            reject(err)
+        }
+        //Write databse Insert/Update/Query code here..
+        console.log('mongodb is running!');
+        let dbo = db.db(dbName)
+        let cName = "purchase"
+        dbo.collection(cName).insertOne(obj, function (err, result) {
+            if (err) {
+                reject(err)
+            };
+            db.close(); //關閉連線
+            resolve(result.insertedCount)
+        })
+    })
+})
+}
+
 //新增多筆
 function Insert(objs) {
     return new Promise((resolve,reject) => {
@@ -149,4 +171,33 @@ function Query() {
     })
 })
 }
-module.exports = {Query,CreateCollect,CreateDatabase,Insert,Delete,Update}
+
+//取得所有請購資料集合
+function QueryPr() {
+    return new Promise((resolve,reject) => {
+    // Connect to the db
+    MongoClient.connect(url, function (err, db) {
+        if (err) {
+            reject(err)
+        }
+        //Write databse Insert/Update/Query code here..
+        console.log('mongodb is running!');
+        let dbo = db.db(dbName)
+        let cName = "purchase"
+        try {
+            dbo.collection(cName).find({}).toArray(function (err, result) {
+                if (err) {
+                    throw err
+                };
+                db.close(); //關閉連線
+                resolve(result)
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    })
+})
+}
+
+
+module.exports = {Query,CreateCollect,CreateDatabase,Insert,Delete,Update,InsertPr,QueryPr}
