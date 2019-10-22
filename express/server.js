@@ -87,7 +87,7 @@ router.post('/collection/add', (req, res) => {
 
 //取得代碼相關資料
 router.get('/codeItem', (req, res) => {
-  actionq.QueryCodeItem(req.kind)
+  actionq.QueryCodeItem(req.query.kind)
   .then((result) => {
       console.log(`總筆數:${result.length}`)
       return res.json(result)
