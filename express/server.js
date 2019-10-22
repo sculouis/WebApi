@@ -85,7 +85,15 @@ router.post('/collection/add', (req, res) => {
 .catch((err) => console.log(err))
 });
 
-
+//取得代碼相關資料
+router.get('/codeItem', (req, res) => {
+  actionq.QueryCodeItem(req.kind)
+  .then((result) => {
+      console.log(`總筆數:${result.length}`)
+      return res.json(result)
+    })
+  .catch((err) => console.log(err))
+});
 
 app.use(cors())  //解決頁面和Web Api不同Site的問題
 app.use(bodyParser.json());

@@ -199,5 +199,33 @@ function QueryPr() {
 })
 }
 
+//取得代碼資料
+function QueryCodeItem(kind) {
+    return new Promise((resolve,reject) => {
+    // Connect to the db
+    MongoClient.connect(url, function (err, db) {
+        if (err) {
+            reject(err)
+        }
+        //Write databse Insert/Update/Query code here..
+        console.log('mongodb is running!');
+        let dbo = db.db(dbName)
+        let cName = "codeItem"
+        try {
+            dbo.collection(cName).find({kind}).toArray(function (err, result) {
+                if (err) {
+                    throw err
+                };
+                db.close(); //關閉連線
+                resolve(result)
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    })
+})
 
-module.exports = {Query,CreateCollect,CreateDatabase,Insert,Delete,Update,InsertPr,QueryPr}
+}
+
+
+module.exports = {Query,CreateCollect,CreateDatabase,Insert,Delete,Update,InsertPr,QueryPr,QueryCodeItem}
