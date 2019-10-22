@@ -209,8 +209,9 @@ function QueryCodeItem(kind) {
         }
         //Write databse Insert/Update/Query code here..
         console.log('mongodb is running!');
+        console.log(`輸入參數：${kind}`)
         let dbo = db.db(dbName)
-        let cName = "codeItem"
+        let cName = "codeitem"
         try {
             dbo.collection(cName).find({kind}).toArray(function (err, result) {
                 if (err) {
